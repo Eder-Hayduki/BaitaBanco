@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:baitabanco/palette.dart';
 import 'package:baitabanco/screens/dashboard.dart';
-import 'package:baitabanco/screens/contatos.dart';
-import 'package:baitabanco/screens/novoContato.dart';
+import 'package:baitabanco/screens/lista_contatos.dart';
+import 'package:baitabanco/screens/form_contato.dart';
+
 
 void main() => runApp(BaitaBanco());
 
@@ -18,7 +19,7 @@ class BaitaBanco extends StatelessWidget {
           textTheme: ButtonTextTheme.primary,
         ), colorScheme: ColorScheme.fromSwatch(primarySwatch:Palette.darkGreen).copyWith(secondary: Colors.green[900])
       ),
-      home: NovoContato(),
+      home: DashBoard(),
     );
   }
 }

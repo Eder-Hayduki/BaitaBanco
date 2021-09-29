@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class ListaContatos extends StatelessWidget {
+import 'form_contato.dart';
 
+class ListaContatos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,17 @@ class ListaContatos extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: () {
+          Navigator.of(context)
+              .push(
+                MaterialPageRoute(
+                  builder: (context) => FormContato(),
+                ),
+              )
+              .then(
+                (novoContato) => debugPrint(novoContato.toString()),
+              );
+        },
         child: Icon(Icons.add),
       ),
     );

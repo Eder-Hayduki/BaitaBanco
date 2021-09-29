@@ -1,4 +1,4 @@
-import 'package:baitabanco/screens/contatos.dart';
+import 'package:baitabanco/screens/lista_contatos.dart';
 import 'package:flutter/material.dart';
 
 class DashBoard extends StatelessWidget {

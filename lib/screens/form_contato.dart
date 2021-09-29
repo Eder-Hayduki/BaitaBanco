@@ -1,6 +1,18 @@
+import 'package:baitabanco/model/contato.dart';
 import 'package:flutter/material.dart';
 
-class NovoContato extends StatelessWidget {
+class FormContato extends StatefulWidget {
+
+  @override
+  _FormContatoState createState() => _FormContatoState();
+
+}
+
+class _FormContatoState extends State<FormContato> {
+
+  final TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _numeroContaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +47,10 @@ class NovoContato extends StatelessWidget {
                 width: double.maxFinite,
                 child: ElevatedButton(
                   onPressed: (){
+                    final nome = _nomeController.text;
+                    final numeroConta = int.tryParse(_numeroContaController.text);
+                    final Contato novoContato = Contato(nome, numeroConta!);
+                    Navigator.pop(context, novoContato);
                   },
                   child: Text('Cadastrar'),
                 ),
