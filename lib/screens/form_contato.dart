@@ -49,7 +49,7 @@ class _FormContatoState extends State<FormContato> {
                   onPressed: (){
                     final nome = _nomeController.text;
                     final numeroConta = int.tryParse(_numeroContaController.text);
-                    final Contato novoContato = Contato(nome, numeroConta!);
+                    final Contato novoContato = Contato(0, nome, numeroConta!);
                     Navigator.pop(context, novoContato);
                   },
                   child: Text('Cadastrar'),
