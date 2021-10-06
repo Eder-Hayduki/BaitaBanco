@@ -9,9 +9,9 @@ import 'database/app_database.dart';
 
 void main() {
   runApp(BaitaBanco());
-  salvar(Contato(0, 'CarecaBarrigudo', 8000)).then((id){
-   buscar().then((contatos) => debugPrint(contatos.toString()));
-  });
+  // salvar(Contato(0, 'Deufim', 81327)).then((id){
+  // buscar().then((contatos) => debugPrint(contatos.toString()));
+  // });
 }
 
 class BaitaBanco extends StatelessWidget {

@@ -1,13 +1,13 @@
+import 'package:baitabanco/database/app_database.dart';
 import 'package:baitabanco/model/contato.dart';
 import 'package:flutter/material.dart';
 
 import 'form_contato.dart';
 
 class ListaContatos extends StatelessWidget {
-  final List<Contato> contatos = [];
+  // final List<Contato> contatos = [];
   @override
   Widget build(BuildContext context) {
-
     /*contatos.add(Contato(0, 'Eder', 7000));
     contatos.add(Contato(0, 'Eduardo', 7001));
     contatos.add(Contato(0, 'Edirce', 7002)); */
@@ -16,12 +16,30 @@ class ListaContatos extends StatelessWidget {
       appBar: AppBar(
         title: Text('Contatos'),
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index){
-          final Contato contato = contatos[index];
-        return _ItemContato(contato);
+      body: FutureBuilder<List<Contato>>(
+        initialData: [],
+        future: Future.delayed(Duration(seconds: 3)).then((value) => buscar()),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.data != null) {
+            final List<Contato> contatos = snapshot.data;
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                final Contato contato = contatos[index];
+                return _ItemContato(contato);
+              },
+              itemCount: contatos.length,
+            );
+          }
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                Text('Loading...'),
+              ],
+            ),
+          );
         },
-        itemCount: contatos.length,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -42,8 +60,8 @@ class ListaContatos extends StatelessWidget {
 }
 
 class _ItemContato extends StatelessWidget {
-
   final Contato contato;
+
   _ItemContato(this.contato);
 
   @override

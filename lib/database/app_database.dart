@@ -36,7 +36,7 @@ Future<List<Contato>> buscar(){
         final Contato contato = Contato(
             map['id'],
             map['nome'],
-            map['numero_conta'],
+            map['numero_conta']
         );
         contatos.add(contato);
       }
