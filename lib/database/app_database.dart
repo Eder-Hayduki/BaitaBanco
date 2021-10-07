@@ -14,15 +14,16 @@ Future<Database>createDatabase(){
           'nome TEXT,'
           'numero_conta INTEGER)');
     }, version: 1);
+        //,onDowngrade: onDatabaseDowngradeDelete
   });
 }
 
 Future<int> salvar(Contato contato) {
   return createDatabase().then((db) {
     final Map<String, dynamic> contatoMap = Map();
-    //contatoMap['id'] = contato.id;
+    contatoMap['id'] = contato.id;
     contatoMap['nome'] = contato.nome;
-    contatoMap['numero_conta'] = contato.numero_conta;
+    contatoMap['numero_conta'] = contato.numeroConta;
 
     return db.insert('contatos', contatoMap);
   });

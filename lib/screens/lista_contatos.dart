@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 
 import 'form_contato.dart';
 
-class ListaContatos extends StatelessWidget {
+class ListaContatos extends StatefulWidget {
   // final List<Contato> contatos = [];
+  @override
+  _ListaContatosState createState() => _ListaContatosState();
+}
+
+class _ListaContatosState extends State<ListaContatos> {
   @override
   Widget build(BuildContext context) {
     /*contatos.add(Contato(0, 'Eder', 7000));
@@ -19,26 +24,41 @@ class ListaContatos extends StatelessWidget {
       body: FutureBuilder<List<Contato>>(
         initialData: [],
         future: Future.delayed(Duration(seconds: 3)).then((value) => buscar()),
+//        future: buscar(),
         builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.data != null) {
-            final List<Contato> contatos = snapshot.data;
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                final Contato contato = contatos[index];
-                return _ItemContato(contato);
-              },
-              itemCount: contatos.length,
-            );
+          switch (snapshot.connectionState) {
+            // antes de future ser executado
+            // case ConnectionState.none:
+            //break;
+
+            //enquanto o future está carregando e não foi finalizado.
+            case ConnectionState.waiting:
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    Text('Loading...'),
+                  ],
+                ),
+              );
+              break;
+              // case ConnectionState.active:
+              //snapshot com dados disponíveis, mas future não foi finalizado.
+
+              break;
+            case ConnectionState.done:
+              final List<Contato> contatos = snapshot.data;
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  final Contato contato = contatos[index];
+                  return _ItemContato(contato);
+                },
+                itemCount: contatos.length,
+              );
+              break;
           }
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(),
-                Text('Loading...'),
-              ],
-            ),
-          );
+          return Text('Erro ao carregar lista!');
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -48,10 +68,10 @@ class ListaContatos extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => FormContato(),
                 ),
-              )
-              .then(
-                (novoContato) => debugPrint(novoContato.toString()),
-              );
+              //).then((novoContato) => debugPrint(novoContato.toString()),
+              ).then((value){
+                setState((){});
+          });
         },
         child: Icon(Icons.add),
       ),
@@ -73,7 +93,7 @@ class _ItemContato extends StatelessWidget {
           style: TextStyle(fontSize: 24.0),
         ),
         subtitle: Text(
-          contato.numero_conta.toString(),
+          contato.numeroConta.toString(),
           style: TextStyle(fontSize: 16.0),
         ),
       ),

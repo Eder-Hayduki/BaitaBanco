@@ -1,11 +1,11 @@
+import 'package:baitabanco/database/app_database.dart';
 import 'package:baitabanco/model/contato.dart';
 import 'package:flutter/material.dart';
 
 class FormContato extends StatefulWidget {
 
   @override
-  _FormContatoState createState() => _FormContatoState();
-
+  State<FormContato> createState() => _FormContatoState();
 }
 
 class _FormContatoState extends State<FormContato> {
@@ -50,7 +50,10 @@ class _FormContatoState extends State<FormContato> {
                     final nome = _nomeController.text;
                     final numeroConta = int.tryParse(_numeroContaController.text);
                     final Contato novoContato = Contato(0, nome, numeroConta!);
-                    Navigator.pop(context, novoContato);
+                    if (nome != '' && numeroConta != null) {
+                      salvar(novoContato).then((id) => Navigator.pop(context));
+                    }
+                    //return null;
                   },
                   child: Text('Cadastrar'),
                 ),
